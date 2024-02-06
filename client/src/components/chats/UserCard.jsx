@@ -42,12 +42,12 @@ const UserCard = ({ chat, user }) => {
             <div className="flex justify-between">
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 {lastChatMessage
-                  ? lastChatMessage?.text?.length <= 25
+                  ? lastChatMessage?.text?.length <= 20
                     ? lastChatMessage?.text
-                    : `${lastChatMessage?.text.substr(0, 25)}...`
+                    : `${lastChatMessage?.text.substr(0, 20)}...`
                   : ""}
               </p>
-              <Notification recipientUser={recipientUser}/>
+              <Notification recipientUser={recipientUser} />
             </div>
           </div>
         ) : (

@@ -34,7 +34,7 @@ const ChatWindow = () => {
               {message?.senderId === user._id ? (
                 <div className="flex justify-end mb-4">
                   <div className="flex flex-col rounded-bl-3xl max-w-[70%] items-end rounded-tl-3xl rounded-tr-xl px-4 py-2 text-white bg-blue-400">
-                    {message?.text}
+                    <span className="break-all">{message?.text}</span>
                     <span className="text-xs text-gray-50 mt-1">
                       {moment(message.createdAt).calendar()}
                     </span>
@@ -43,7 +43,7 @@ const ChatWindow = () => {
               ) : (
                 <div className="flex justify-start mb-4">
                   <div className="flex flex-col max-w-[70%] items-start py-2 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
-                    {message?.text}
+                    <span className="break-all">{message?.text}</span>
                     <span className="text-xs text-gray-50 mt-1">
                       {moment(message.createdAt).calendar()}
                     </span>
