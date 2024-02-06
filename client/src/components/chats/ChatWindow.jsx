@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import moment from "moment";
 
 const ChatWindow = () => {
-  const [textMessage, setTextMessage] = useState(null);
+  const [textMessage, setTextMessage] = useState("");
 
   const { currentChat, currentChatMessages, sendMessage } =
     useContext(ChatContext);
@@ -18,44 +18,46 @@ const ChatWindow = () => {
 
   let currentChatUser = useFetchRecipientUser(currentChat, user);
   return (
-    <div className="h-full">
-      <div className="border-b border-gray-200 dark:border-gray-600 text-center p-4">
-        <span className="font-bold text-lg dark:text-white">
-          {currentChatUser?.name}
-        </span>
-      </div>
-      <div
-        className="px-4 py-2 max-h-[390px] h-full overflow-y-scroll"
-        id="chatWindow"
-      >
-        {currentChatMessages?.map((message, index) => {
-          return (
-            <div key={index}>
-              {message?.senderId === user._id ? (
-                <div className="flex justify-end mb-4">
-                  <div className="flex flex-col rounded-bl-3xl max-w-[70%] items-end rounded-tl-3xl rounded-tr-xl px-4 py-2 text-white bg-blue-400">
-                    <span className="break-all">{message?.text}</span>
-                    <span className="text-xs text-gray-50 mt-1">
-                      {moment(message.createdAt).calendar()}
-                    </span>
+    <div className="flex flex-col h-full justify-between">
+      <div>
+        <div className="border-b border-gray-200 dark:border-gray-600 text-center p-4">
+          <span className="font-bold text-lg dark:text-white">
+            {currentChatUser?.name}
+          </span>
+        </div>
+        <div
+          className="px-4 py-2 max-h-[407px] h-full overflow-y-scroll"
+          id="chatWindow"
+        >
+          {currentChatMessages?.map((message, index) => {
+            return (
+              <div key={index}>
+                {message?.senderId === user._id ? (
+                  <div className="flex justify-end mb-4">
+                    <div className="flex flex-col rounded-bl-3xl max-w-[70%] items-end rounded-tl-3xl rounded-tr-xl px-4 py-2 text-white bg-blue-400">
+                      <span className="break-all">{message?.text}</span>
+                      <span className="text-xs text-gray-50 mt-1">
+                        {moment(message.createdAt).calendar()}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="flex justify-start mb-4">
-                  <div className="flex flex-col max-w-[70%] items-start py-2 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
-                    <span className="break-all">{message?.text}</span>
-                    <span className="text-xs text-gray-50 mt-1">
-                      {moment(message.createdAt).calendar()}
-                    </span>
+                ) : (
+                  <div className="flex justify-start mb-4">
+                    <div className="flex flex-col max-w-[70%] items-start py-2 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+                      <span className="break-all">{message?.text}</span>
+                      <span className="text-xs text-gray-50 mt-1">
+                        {moment(message.createdAt).calendar()}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <form
-        className="flex px-4 gap-5 mt-2"
+        className="flex px-4 gap-5 my-2"
         onSubmit={(e) => {
           e.preventDefault();
           sendMessage(textMessage, user._id, currentChat);
